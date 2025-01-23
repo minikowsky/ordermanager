@@ -1,4 +1,8 @@
 spring:
+  data:
+    web:
+      pageable:
+        one-indexed-parameters:
   application:
     name: ordermanager
   h2:

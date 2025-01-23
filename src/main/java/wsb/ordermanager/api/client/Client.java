@@ -1,14 +1,11 @@
 package wsb.ordermanager.api.client;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import wsb.ordermanager.api.order.Order;
-
-import java.util.Set;
 
 @Entity
 @Table(name = "clients")
@@ -17,28 +14,37 @@ import java.util.Set;
 @AllArgsConstructor
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "clients_id_seq", sequenceName = "clients_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "clients_id_seq")
     private Long id;
 
     @Column
-    @Length(min = 3, max = 20)
+    @Length(min = 3, max = 64)
     private String name;
 
     @Column
-    @Length(min = 3, max = 40)
+    @Length(min = 3, max = 128)
     private String address;
 
     @Column
     @Email
-    @Length(min = 3, max = 20)
+    @Length(min = 3, max = 32)
     private String email;
 
     @Column
-    @Length(min = 3, max = 30)
+    @Length(min = 3, max = 32)
     private String companyName;
 
     @Column
-    @Length(min = 10, max = 10)
+    @Min(1000000000L)
+    @Max(9999999999L)
     private Long nip;
 
+    public Client(String name, String address, String email, String companyName, Long nip) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.companyName = companyName;
+        this.nip = nip;
+    }
 }

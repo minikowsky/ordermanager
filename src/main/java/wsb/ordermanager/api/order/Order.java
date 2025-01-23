@@ -1,11 +1,12 @@
 package wsb.ordermanager.api.order;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "orders")
@@ -14,31 +15,28 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "orders_id_seq", sequenceName = "orders_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "orders_id_seq")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "clientId")
-    private String clientId;
+    @Column
+    private Long clientId;
 
     @Column
-    private String name;
+    @Length(min = 3, max = 1024)
+    private String description;
 
     @Column
-    @Length(min = 3, max = 40)
-    private String address;
+    private LocalDate date;
 
     @Column
-    @Email
-    @Length(min = 3, max = 20)
-    private String email;
+    @Length(min = 3, max = 32)
+    private String status;
 
-    @Column
-    @Length(min = 3, max = 30)
-    private String companyName;
-
-    @Column
-    @Length(min = 10, max = 10)
-    private Long nip;
-
+    public Order(Long clientId, String description, LocalDate date, String status) {
+        this.clientId = clientId;
+        this.description = description;
+        this.date = date;
+        this.status = status;
+    }
 }
