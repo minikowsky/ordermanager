@@ -19,17 +19,17 @@ public class Order {
     @GeneratedValue(generator = "orders_id_seq")
     private Long id;
 
-    @Column
+    @Column(name = "customer_id")
     private Long clientId;
 
-    @Column
+    @Column(name = "details")
     @Length(min = 3, max = 1024)
     private String description;
 
-    @Column
+    @Column(name = "order_date")
     private LocalDate date;
 
-    @Column
+    @Column(name = "status")
     @Length(min = 3, max = 32)
     private String status;
 

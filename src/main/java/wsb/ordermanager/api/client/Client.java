@@ -18,24 +18,24 @@ public class Client {
     @GeneratedValue(generator = "clients_id_seq")
     private Long id;
 
-    @Column
+    @Column(name = "full_name")
     @Length(min = 3, max = 64)
     private String name;
 
-    @Column
+    @Column(name = "address")
     @Length(min = 3, max = 128)
     private String address;
 
-    @Column
+    @Column(name = "email")
     @Email
     @Length(min = 3, max = 32)
     private String email;
 
-    @Column
+    @Column(name = "company_name")
     @Length(min = 3, max = 32)
     private String companyName;
 
-    @Column
+    @Column(name = "tax_id")
     @Min(1000000000L)
     @Max(9999999999L)
     private Long nip;
